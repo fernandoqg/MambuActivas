@@ -1,0 +1,1062 @@
+{
+	"info": {
+		"_postman_id": "76c010d7-b42c-48c9-8877-4c039c3c43b0",
+		"name": "Mambu_Sofka_Backend_Activas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21045758"
+	},
+	"item": [
+		{
+			"name": "Gestion_Cliente_A",
+			"item": [
+				{
+					"name": "1-CrearClienteA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"gen-clientA-id\", jsonData.encodedKey);\r",
+									"postman.setEnvironmentVariable(\"gen-clientA-name\", jsonData.firstName + '  ' + jsonData.lastName);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "default"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"phoneNumber\": \"{{$randomPhoneNumber}}\",\r\n    \"documentId\": \"{{$randomInt}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"gender\": \"MALE\",\r\n    \"address\": \"{{$randomStreetAddress}}\",\r\n    \"preferredLanguage\": \"SPANISH\",\r\n     \"_personalizados\" : {\r\n        \"External_ID\": \"{{$randomUUID}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clients/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clients",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RecuperaProductoTasaFija",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"gen-producto\", jsonData.encodedKey);\r",
+									"postman.setEnvironmentVariable(\"gen-type\", jsonData.type);\r",
+									"postman.setEnvironmentVariable(\"gen-interestRate\",jsonData.interestSettings.indexRateSettings.interestRate.defaultValue);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/loanproducts/:Idproducto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"loanproducts",
+								":Idproducto"
+							],
+							"query": [
+								{
+									"key": "branchId",
+									"value": "nisi paria",
+									"description": "The id of the branch to which the product applies to",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "Idproducto",
+									"value": "microcredcol"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RecuperaProductoTasaDinamica",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"gen-producto\", jsonData.encodedKey);\r",
+									"postman.setEnvironmentVariable(\"gen-type\", jsonData.type);\r",
+									"postman.setEnvironmentVariable(\"gen-interesRate\",jsonData.interestSettings.indexRateSettings.interestRate.defaultValue);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"url": {
+							"raw": "{{urlmambu}}/loanproducts/:Idproducto?offset=0&limit=10&paginationDetails=OFF&detailsLevel=FULL",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loanproducts",
+								":Idproducto"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Pagination, index to start searching at when retrieving elements, used in combination with limit to paginate results"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Pagination, the number of elements to retrieve, used in combination with offset to paginate results"
+								},
+								{
+									"key": "paginationDetails",
+									"value": "OFF",
+									"description": "Flag specifying whether the pagination  details should be provided in response headers. Please note that by default it is disabled (OFF), in order to improve the performance of the APIs"
+								},
+								{
+									"key": "detailsLevel",
+									"value": "FULL",
+									"description": "The level of details to retrieve, FULL means the full details of the object will be retrieved (custom fields, address, contact info or any other related object), BASIC will return only the first level elements of the object"
+								},
+								{
+									"key": "branchId",
+									"value": "nisi paria",
+									"description": "The id of the branch to which the product applies to",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "Idproducto",
+									"value": "helpinghandloan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2-CrearPrestamo_ClienteA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"gen-id_cta_A\", jsonData.id);\r",
+									"postman.setEnvironmentVariable(\"gen-accountType_A\", jsonData.accountType);\r",
+									"postman.setEnvironmentVariable(\"gen-encodedKeyA\", jsonData.encodedKey);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountHolderKey\": \"{{gen-clientA-id}}\",\n  \"loanAmount\":\"1500000\",\n  \"productTypeKey\": \"{{gen-producto}}\",\n  \"name\": \"Cuenta de Prueba Mambu\",\n  \"notes\": \"Cuenta de pruebas creada via api - postman\",\n  \"accountHolderType\": \"CLIENT\",\n  \"interestSettings\":{\n      \"interestRate\":\"{{gen-interestRate}}\"\n  },\n  \"scheduleSettings\":{\n      \"gracePeriod\":0,\n      \"repaymentInstallments\":10\n  }\n}\n  \n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/loans",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"loans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3-AprobarPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "text"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"APPROVE\",\n  \"notes\": \"Prestamo Aprobado desde API\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/loans/:loanAccountId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"loans",
+								":loanAccountId"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}:changeState"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4-DesembolsoPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"notes\": \"PruebaMambu - Desembolso desde API\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/loans/:loanAccountId/disbursement",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"loans",
+								":loanAccountId",
+								"disbursement"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busqueda_Desembolsos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "text"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filterCriteria\": [\n        {\n            \"field\": \"type\",\n            \"operator\": \"IN\",\n            \"values\": [\n                \"DISBURSEMENT\"\n            ]\n        },\n        {\n            \"field\": \"adjustmentTransactionKey\",\n            \"operator\": \"EMPTY\"\n        }\n    ],\n    \"sortingCriteria\": {\n        \"field\": \"creationDate\",\n        \"order\": \"DESC\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans/transactions:search?limit=10",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans",
+								"transactions:search"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5-Busqueda_Pagos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "text"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"filterCriteria\": [\n        {\n            \"field\": \"type\",\n            \"operator\": \"IN\",\n            \"values\": [\n                \"REPAYMENT\"\n            ]\n        },\n        {\n            \"field\": \"adjustmentTransactionKey\",\n            \"operator\": \"EMPTY\"\n        }\n    ],\n    \"sortingCriteria\": {\n        \"field\": \"creationDate\",\n        \"order\": \"DESC\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans/transactions:search?limit=10",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans",
+								"transactions:search"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PagoPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\":10000,\n  \"notes\": \"Prueba Pago Prestamo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/loans/:loanAccountId/repayment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"loans",
+								":loanAccountId",
+								"repayment"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6-Buscar_Prestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "text"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filterCriteria\": [\n    {\n      \"field\": \"id\",\n      \"operator\": \"EQUALS\",\n      \"value\": \"AHAD074\"\n    }\n  ],\n  \"sortingCriteria\": {\n    \"field\": \"creationDate\",\n    \"order\": \"DESC\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans:search",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans:search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7-BloquearPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"notes\": \"Bloqueo Prueba Prestamos desde API\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/loans/:loanAccountId/lock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"loans",
+								":loanAccountId",
+								"lock"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8-Buscar_Bloqueo_Prestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "text"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filterCriteria\": [\n    {\n      \"field\": \"id\",\n      \"operator\": \"EQUALS\",\n      \"value\": \"BSYG729\"\n    }\n  ],\n  \"sortingCriteria\": {\n    \"field\": \"creationDate\",\n    \"order\": \"DESC\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans:search",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans:search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9-Buscar_PrestamosById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json",
+								"type": "text"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans/:loanAccountId",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans",
+								":loanAccountId"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10-BuscarTablaAmortizacionPrestamo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans/:loanAccountId/schedule",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans",
+								":loanAccountId",
+								"schedule"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "11-CambiarTasaInteresPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"interestRate\": 5,\n  \"notes\": \"PRUEBA CAMBIO TASA DE INTERES\",\n  \"valueDate\": \"2023-08-19T11:45:30-05:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/changeInterest/:loanAccountId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"changeInterest",
+								":loanAccountId"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}:changeInterestRate"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "12-PagoParcialPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\":1,\n  \"notes\": \"Prueba Pago Parcial Prestamo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans/:loanAccountId/repayment-transactions",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans",
+								":loanAccountId",
+								"repayment-transactions"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "13-PagoTotalPrestamo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n  \"notes\": \"Prueba Pago Total\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/payOff/:loanAccountId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"payOff",
+								":loanAccountId"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "14-RefinanciarPrestamo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"gen-productoRefi\", jsonData.encodedKey);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loanAccount\": {\n        \"disbursementDetails\": {\n            \"expectedDisbursementDate\": \"2023-10-27T13:37:50-05:00\",\n            \"firstRepaymentDate\": \"2023-10-27T13:37:50-05:00\"\n        },\n        \"interestSettings\": {\n            \"interestRate\": 14\n        },\n        \"scheduleSettings\": {\n            \"billingCycleDays\": {\n                \"days\": [\n                    30\n                ]\n            },\n            \"repaymentInstallments\": 60,\n            \"repaymentPeriodCount\": 4,\n            \"repaymentPeriodUnit\": \"WEEKS\",\n            \"productTypeKey\": \"{{gen-producto}}\",\n            \"penaltySettings\": {\n                \"penaltyRate\": 3\n            }\n        },\n        \"topUpAmount\": 5000000\n    }\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/refinance/:loanAccountId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"refinance",
+								":loanAccountId"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-id_cta_A}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DesembolsoPrestamoRefi",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"notes\": \"PruebaMambu - Desembolso desde API\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urlmambu}}/loans/:loanAccountId/disbursement-transactions",
+							"host": [
+								"{{urlmambu}}"
+							],
+							"path": [
+								"loans",
+								":loanAccountId",
+								"disbursement-transactions"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-productoRefi}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "15-ReagendarPrestamo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"gen-productoRefi\", jsonData.encodedKey);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"description": "Key that can be used to support idempotency on this POST. Must be a valid UUID(version 4 is recommended) string and can only be used with the exact same request. Can be used in retry mechanisms to prevent double posting.",
+								"key": "Idempotency-Key",
+								"value": "{{$randomUUID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.mambu.v2+json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loanAccount\": {\n        \"disbursementDetails\": {\n            \"firstRepaymentDate\": \"2023-09-27T13:37:50-05:00\"\n        },\n        \"interestSettings\": {\n            \"interestRate\": 14\n        },\n        \"scheduleSettings\": {\n            \"billingCycleDays\": {\n                \"days\": [\n                    30\n                ]\n            },\n            \"repaymentInstallments\": 80,\n            \"repaymentPeriodCount\": 4,\n            \"repaymentPeriodUnit\": \"WEEKS\"\n        },\n        \"productTypeKey\": \"{{gen-producto}}\",\n        \"penaltySettings\": {\n            \"penaltyRate\": 3\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/reschedule/:loanAccountId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reschedule",
+								":loanAccountId"
+							],
+							"variable": [
+								{
+									"key": "loanAccountId",
+									"value": "{{gen-encodedKeyA}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{pass}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{user}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
