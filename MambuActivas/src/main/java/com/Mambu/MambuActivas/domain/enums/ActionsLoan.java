@@ -1,0 +1,5 @@
+package com.Mambu.MambuActivas.domain.enums;
+
+public enum ActionsLoan {
+    REQUEST_APPROVAL,SET_INCOMPLETE,APPROVE,UNDO_APPROVE,REJECT,WITHDRAW,CLOSE,UNDO_REJECT,UNDO_WITHDRAW,UNDO_CLOSE
+}
